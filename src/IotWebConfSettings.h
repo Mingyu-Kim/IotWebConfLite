@@ -27,17 +27,6 @@
 # define IOTWEBCONF_PASSWORD_LEN 33
 #endif
 
-// -- IotWebConf tries to connect to the local network for an amount of time
-// before falling back to AP mode.
-#ifndef IOTWEBCONF_DEFAULT_WIFI_CONNECTION_TIMEOUT_MS
-# define IOTWEBCONF_DEFAULT_WIFI_CONNECTION_TIMEOUT_MS 30000
-#endif
-
-// -- Thing will stay in AP mode for an amount of time on boot, before retrying
-// to connect to a WiFi network.
-#ifndef IOTWEBCONF_DEFAULT_AP_MODE_TIMEOUT_SECS
-# define IOTWEBCONF_DEFAULT_AP_MODE_TIMEOUT_SECS "30"
-#endif
 
 // -- mDNS should allow you to connect to this device with a hostname provided
 // by the device. E.g. mything.local

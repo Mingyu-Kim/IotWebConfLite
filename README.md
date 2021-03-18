@@ -1,3 +1,19 @@
+# IotWebConfLite
+
+## What is different?
+IoTWebConfLite is based on IotWebConf library.
+The key difference is the removal of everything other then configuration save/load feature
+### Removed Features
+* LED Blinking
+* Config Pin
+* Status Pin
+* Wifi credential managment
+* Wifi connection / SoftAP connection
+* Update server
+* States
+
+Check below for original author's features
+
 # IotWebConf [![Build Status](https://travis-ci.org/prampec/IotWebConf.svg?branch=master)](https://travis-ci.org/prampec/IotWebConf)
 
 ## Upgrading to v3.0.0
