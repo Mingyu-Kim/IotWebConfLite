@@ -340,19 +340,6 @@ public:
   };
   Parameter* getThingNameParameter() { return &this->_thingNameParameter; };
   Parameter* getApPasswordParameter() { return &this->_apPasswordParameter; };
-  WifiParameterGroup* getWifiParameterGroup()
-  {
-    return &this->_wifiParameters;
-  };
-  Parameter* getWifiSsidParameter()
-  {
-    return &this->_wifiParameters.wifiSsidParameter;
-  };
-  Parameter* getWifiPasswordParameter()
-  {
-    return &this->_wifiParameters.wifiPasswordParameter;
-  };
-  Parameter* getApTimeoutParameter() { return &this->_apTimeoutParameter; };
 
   /**
    * If config parameters are modified directly, the new values can be saved by
@@ -400,7 +387,6 @@ private:
       ParameterGroup("iwcSys", "System configuration");
   ParameterGroup _customParameterGroups = ParameterGroup("iwcCustom");
   ParameterGroup _hiddenParameters = ParameterGroup("hidden");
-  WifiParameterGroup _wifiParameters = WifiParameterGroup("iwcWifi0");
   TextParameter _thingNameParameter = TextParameter(
       "Thing name", "iwcThingName", this->_thingName, IOTWEBCONF_WORD_LEN);
   PasswordParameter _apPasswordParameter = PasswordParameter(
@@ -408,6 +394,9 @@ private:
       IOTWEBCONF_PASSWORD_LEN);
   char _thingName[IOTWEBCONF_WORD_LEN];
   char _apPassword[IOTWEBCONF_PASSWORD_LEN];
+  std::function<void(int)> _configSavingCallback = NULL;
+  std::function<void()> _configSavedCallback = NULL;
+  std::function<bool(WebRequestWrapper* webRequestWrapper)> _formValidator = NULL;
   HtmlFormatProvider htmlFormatProviderInstance;
   HtmlFormatProvider* htmlFormatProvider = &htmlFormatProviderInstance;
 

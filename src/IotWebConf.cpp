@@ -37,7 +37,6 @@ IotWebConf::IotWebConf(
   this->_initialApPassword = initialApPassword;
   this->_configVersion = configVersion;
 
-  this->_apTimeoutParameter.visible = false;
   this->_systemParameters.addItem(&this->_thingNameParameter);
   this->_systemParameters.addItem(&this->_apPasswordParameter);
 
@@ -170,8 +169,6 @@ void IotWebConf::saveConfig()
 
   EEPROM.end();
 
-  this->_apTimeoutMs = atoi(this->_apTimeoutStr) * 1000;
-
   if (this->_configSavedCallback != NULL)
   {
     this->_configSavedCallback();
@@ -211,11 +208,6 @@ void IotWebConf::saveConfigVersion()
   {
     EEPROM.write(IOTWEBCONF_CONFIG_START + t, this->_configVersion[t]);
   }
-}
-
-void IotWebConf::setWifiConnectionCallback(std::function<void()> func)
-{
-  this->_wifiConnectionCallback = func;
 }
 
 void IotWebConf::setConfigSavingCallback(std::function<void(int size)> func)
@@ -284,13 +276,6 @@ void IotWebConf::handleConfig(WebRequestWrapper* webRequestWrapper)
     this->_customParameterGroups.renderHtml(dataArrived, webRequestWrapper);
 
     content = htmlFormatProvider->getFormEnd();
-
-    if (this->_updatePath != NULL)
-    {
-      String pitem = htmlFormatProvider->getUpdate();
-      pitem.replace("{u}", this->_updatePath);
-      content += pitem;
-    }
 
     // -- Fill config version string;
     {
@@ -466,7 +451,6 @@ void IotWebConf::delay(unsigned long m)
 
 void IotWebConf::doLoop()
 {
-  doBlink();
   yield(); // -- Yield should not be necessary, but cannot hurt either.
   this->_dnsServer->processNextRequest();
   this->_webServerWrapper->handleClient();
